@@ -18,8 +18,5 @@ export class ConfigService {
 
     this.discordToken = process.env.DISCORD_API_TOKEN;
     this.discordClientId = process.env.DISCORD_CLIENT_ID;
-
-    Logger.log(this.discordToken);
-    Logger.log(this.discordClientId);
   }
 }
