@@ -1,17 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { CommandService } from '@src/command/command.service';
+import { PingHandler } from '@src/command/ping/ping.handler';
 import { ConfigService } from '@src/config/config.service';
 
-describe('ConfigService', () => {
-  let service: ConfigService;
+describe('CommandService', () => {
+  let service: CommandService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigService],
-      providers: [ConfigService],
+      providers: [CommandService, PingHandler, ConfigService],
     }).compile();
 
-    service = module.get<ConfigService>(ConfigService);
+    service = module.get<CommandService>(CommandService);
   });
 
   it('should be defined', () => {
