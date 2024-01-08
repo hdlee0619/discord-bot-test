@@ -11,17 +11,23 @@ export class DiscordService {
   constructor(private readonly config: ConfigService) {}
 
   connect(): Client {
-    this.client = new Client({ intents: [GatewayIntentBits.Guilds] });
+    this.client = new Client({
+      intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+      ],
+    });
 
-    this.client.on('ready', () => {
-      Logger.log(`Discord connected with handle ${this.client.user.tag}`);
+    this.client.once('ready', () => {
+      Logger.log(`Discord connected with ${this.client.user.tag}`);
       this.isReady = true;
     });
 
     this.client
       .login(this.config.discordToken)
-      .then((message) => Logger.log(message))
-      .catch((error) => Logger.log(error));
+      .then((message) => Logger.log(`Success Login with ${message}`))
+      .catch((error) => Logger.error(`Fail with ${error}`));
 
     return this.client;
   }
